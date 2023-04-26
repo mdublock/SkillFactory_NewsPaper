@@ -30,6 +30,7 @@ class Category(models.Model):
 
 
 class Post(models.Model):
+    objects = None
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
     POST_TYPES = (
         ('article', 'Article'),
@@ -55,7 +56,7 @@ class Post(models.Model):
         self.save()
 
     def __str__(self):
-        return self.title
+        return f'{self.title}: {self.content[:200]}'
 
 
 class PostCategory(models.Model):
