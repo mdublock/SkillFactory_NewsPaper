@@ -1,0 +1,15 @@
+{% extends 'flatpages/default.html' %}
+
+{% block content %}
+    <form method="get">
+        {{ filter.form.as_p }}
+        <button type="submit">Filter</button>
+    </form>
+    {% if filter.qs %}
+        <ul>
+        {% for post in filter.qs %}
+            <li>{{ post.title }} - {{ post.category }} - {{ post.created_at }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}
