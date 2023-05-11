@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Post
@@ -26,7 +27,9 @@ def post_search(request):
     return render(request, 'post_search.html', {'filter': post_filter})
 
 
-class NewsCreate(CreateView):
+class NewsCreate(LoginRequiredMixin, CreateView):
+    raise_exception = True
+    permission_required = ('news.add_news',)
     form_class = NewsForm
     model = Post
     template_name = 'news_edit.html'
@@ -38,6 +41,7 @@ class NewsCreate(CreateView):
 
 
 class ArticleCreate(CreateView):
+    permission_required = ('news.add_article',)
     form_class = ArticleForm
     model = Post
     template_name = 'article_edit.html'
@@ -49,12 +53,14 @@ class ArticleCreate(CreateView):
 
 
 class NewsUpdate(UpdateView):
+    permission_required = ('news.edit_news',)
     form_class = NewsForm
     model = Post
     template_name = 'news_edit.html'
 
 
 class ArticleUpdate(UpdateView):
+    permission_required = ('news.edit_article',)
     form_class = ArticleForm
     model = Post
     template_name = 'article_edit.html'
