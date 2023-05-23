@@ -8,8 +8,7 @@ News
 
 <!-- В контенте на странице мы выводим все товары -->
 {% block content %}
-    <h1>Все новости</h1>
-    <p>Количество новостей: {{ posts|length }}</p>
+   <h1 class="text-center">Новости <span class="text_muted fs-6 fw-normal">Всего: {{ page_obj.paginator.count }}</span> </h1>
 
     <form action="" method="get">
         {{ filterset.form.as_p }}

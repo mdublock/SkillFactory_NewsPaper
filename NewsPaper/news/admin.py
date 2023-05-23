@@ -1,10 +1,21 @@
 from django.contrib import admin
-from django.contrib import admin
-from .models import Post
-from .models import Author
+from .models import Post, Author, Category, PostCategory, Comment
 
-admin.site.register(Post)
+
+class CategoryInLine(admin.TabularInline):
+    model = PostCategory
+    extra = 1
+
+
+class PostAdmin(admin.ModelAdmin):
+    model = Post
+    inlines = (CategoryInLine,)
+
+
+admin.site.register(Post, PostAdmin)
 admin.site.register(Author)
-
+admin.site.register(Category)
+admin.site.register(PostCategory)
+admin.site.register(Comment)
 
 # Register your models here.
